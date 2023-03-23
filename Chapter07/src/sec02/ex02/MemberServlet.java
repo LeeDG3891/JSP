@@ -1,4 +1,4 @@
-package sec01.ex01;
+package sec02.ex02;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MemberServlet
  */
-@WebServlet("/Member") // 주석 해제
+@WebServlet("/Member4") // 주석 해제
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -41,6 +41,6 @@ public class MemberServlet extends HttpServlet {
 			out.print("<tr><td>" + id + "</td><td>" + pwd + "</td><td>" + name + "</td><td>" + email + "</td><td>"
 					+ joinDate + "</td></tr>");
 		}
-		out.print("</table><body></html>");
+		out.print("</table></body></html>");
 	}
 }
