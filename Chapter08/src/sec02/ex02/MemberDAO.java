@@ -2,6 +2,7 @@ package sec02.ex02;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -12,16 +13,9 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class MemberDAO {
-	/*
-	private static final String driver = "oracle.jdbc.driver.OracleDriver";
-	private static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	private static final String user = "scott";
-	private static final String pwd = "tiger";
-	*/
-	
 	private Connection con;
-	private PreparedStatement pstmt;
-	private DataSource dataFactory;
+	private PreparedStatement pstmt; 
+	private DataSource dataFactory; 
 	
 	public MemberDAO() {
 		try {
@@ -32,16 +26,16 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<MemberVO> listMembers() {
 		List<MemberVO> list = new ArrayList<MemberVO>();
 		try {
-			con = dataFactory.getConnection();
+			con=dataFactory.getConnection();		
 			
-			String query = "select * from t_member";
+			String query = "select * from t_member ";
 			System.out.println(query);
 			
-			pstmt = con.prepareStatement(query);
+			pstmt = con.prepareStatement(query);		
 			ResultSet rs = pstmt.executeQuery(query);
 			
 			while (rs.next()) {
@@ -67,6 +61,7 @@ public class MemberDAO {
 		return list;
 	}
 
+	// 추가
 	public void addMember(MemberVO memberVO) {
 		try {
 			con = dataFactory.getConnection();
@@ -78,7 +73,7 @@ public class MemberDAO {
 			String query = "insert into t_member";
 			query += " (id,pwd,name,email)";
 			query += " values(?,?,?,?)";			
-			System.out.println("prepareStatement: " + query);
+			System.out.println("prepareStatememt: " + query);
 			
 			pstmt = con.prepareStatement(query);
 			pstmt.setString(1, id);
@@ -87,23 +82,25 @@ public class MemberDAO {
 			pstmt.setString(4, email);
 			pstmt.executeUpdate();
 			pstmt.close();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
+	// 추가
 	public void delMember(String id) {
 		try {
 			con = dataFactory.getConnection();
-	         
-	        String query = "delete from t_member" + " where id=?";
-	        System.out.println("prepareStatement: " + query);
-	        pstmt = con.prepareStatement(query);
-	        pstmt.setString(1, id);
-	        pstmt.executeUpdate();
-	        pstmt.close();
-		} catch(Exception e) {
+			
+			String query = "delete from t_member" + " where id=?";
+			System.out.println("prepareStatememt:" + query);
+			
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+			pstmt.close();
+		} catch (Exception e) {
 			e.printStackTrace();
-	    }
+		}
 	}
 }
